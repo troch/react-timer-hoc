@@ -1,0 +1,53 @@
+{
+  "name": "react-timer-hoc",
+  "version": "1.0.0",
+  "description": "A React timer higher-order component",
+  "main": "dist/timer.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register modules/timer.test.js",
+    "build": "eslint modules/timer.js && babel modules/timer.js -o dist/timer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/troch/react-timer-hoc.git"
+  },
+  "keywords": [
+    "react",
+    "timer",
+    "hoc",
+    "higher-order",
+    "component"
+  ],
+  "author": "Thomas Roch <thomas.c.roch@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/troch/react-timer-hoc/issues"
+  },
+  "homepage": "https://github.com/troch/react-timer-hoc#readme",
+  "devDependencies": {
+    "babel": "^6.1.18",
+    "babel-core": "^6.2.1",
+    "babel-eslint": "^4.1.6",
+    "babel-plugin-transform-function-bind": "^6.1.18",
+    "babel-plugin-transform-object-rest-spread": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "chai": "^3.4.1",
+    "eslint": "^1.10.2",
+    "jsdom": "^7.1.0",
+    "mocha": "^2.3.4",
+    "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.3",
+    "react-hyperscript": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.3"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-3",
+      "stage-2",
+      "stage-1"
+    ]
+  }
+}
