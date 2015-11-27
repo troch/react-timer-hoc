@@ -32,6 +32,7 @@ function timer(delay) {
 
                 _this.state = { tick: 0 };
                 _this.setInterval = _this.setInterval.bind(_this);
+                _this.stop = _this.stop.bind(_this);
                 return _this;
             }
 
@@ -55,6 +56,11 @@ function timer(delay) {
                     }, delay);
                 })
             }, {
+                key: 'stop',
+                value: function stop() {
+                    clearInterval(this.timer);
+                }
+            }, {
                 key: 'componentDidMount',
                 value: function componentDidMount() {
                     this.setInterval();
@@ -62,15 +68,17 @@ function timer(delay) {
             }, {
                 key: 'componentWillUnmout',
                 value: function componentWillUnmout() {
-                    clearInterval(this.timer);
+                    this.stop();
                 }
             }, {
                 key: 'render',
                 value: function render() {
-                    var props = this.props;
+                    var _props = this.props;
+                    var props = _props.props;
+                    var stop = _props.stop;
                     var tick = this.state.tick;
 
-                    return (0, _react.createElement)(TimedComponent, _extends({}, props, { tick: tick, delay: delay, timer: this.timer }));
+                    return (0, _react.createElement)(TimedComponent, _extends({}, props, { tick: tick, delay: delay, stop: stop }));
                 }
             }]);
 

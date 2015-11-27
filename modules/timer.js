@@ -7,6 +7,7 @@ function timer(delay) {
                 super(props);
                 this.state = { tick: 0 };
                 this.setInterval = ::this.setInterval;
+                this.stop = ::this.stop;
             }
 
             setInterval() {
@@ -15,19 +16,23 @@ function timer(delay) {
                 }, delay);
             }
 
+            stop() {
+                clearInterval(this.timer);
+            }
+
             componentDidMount() {
                 this.setInterval();
             }
 
             componentWillUnmout() {
-                clearInterval(this.timer);
+                this.stop();
             }
 
             render() {
-                const props = this.props;
+                const { props, stop } = this.props;
                 const { tick } = this.state;
 
-                return createElement(TimedComponent, { ...props, tick, delay, timer: this.timer });
+                return createElement(TimedComponent, { ...props, tick, delay, stop });
             }
         };
 
