@@ -23,8 +23,11 @@ describe('Timer', function() {
         const WrappedCounter = timer(1000)(Counter);
         expect(WrappedCounter.displayName).to.equal('Timer@1000[Counter]');
 
-        const wrappedCounter = renderIntoDocument(h(WrappedCounter));
+        const wrappedCounter = renderIntoDocument(h(WrappedCounter, { customProp: 1 }));
         const counter = findRenderedComponentWithType(wrappedCounter, Counter);
         expect(counter.props.tick).to.equal(0);
+        expect(counter.props.delay).to.equal(1000);
+        expect(counter.props.stop).to.be.a.function;
+        expect(counter.props.customProp).to.equal(1);
     });
 });
