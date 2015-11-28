@@ -29,5 +29,9 @@ describe('Timer', function() {
         expect(counter.props.delay).to.equal(1000);
         expect(counter.props.stop).to.be.a.function;
         expect(counter.props.customProp).to.equal(1);
+
+        expect(wrappedCounter.stopped).to.be.false;
+        counter.props.stop();
+        expect(wrappedCounter.stopped).to.be.true;
     });
 });
