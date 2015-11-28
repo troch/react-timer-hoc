@@ -1,9 +1,11 @@
 import React from 'react';
 
 function timer(delay) {
-    if (typeof delay !== 'number' || delay === 0 || delay < 0) {
+    invariant(
+        typeof delay !== 'number' || delay === 0 || delay < 0,
+        '[react-timer-hoc] `delay` should be a number greater than 0.'
+    );
 
-    }
     return function TimerHoc(TimedComponent) {
         class Timer extends React.Component {
             constructor(props) {
