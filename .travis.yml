@@ -3,6 +3,7 @@ node_js:
   - '4.0'
 before_script:
   - npm i -g babel-cli
+  - npm i npm@2.14.12 --global
 script:
   - npm run build
   - npm test
