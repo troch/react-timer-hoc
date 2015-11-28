@@ -1,3 +1,13 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/troch/react-timer-hoc/compare/v1.0.2...v1.0.3) (2015-11-28)
+
+
+### Bug Fixes
+
+* fix dependencies ([4b9ef17](https://github.com/troch/react-timer-hoc/commit/4b9ef17))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/troch/react-timer-hoc/compare/v1.0.1...v1.0.2) (2015-11-28)
 
