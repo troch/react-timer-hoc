@@ -1,6 +1,9 @@
 import React from 'react';
 
 function timer(delay) {
+    if (typeof delay !== 'number' || delay === 0 || delay < 0) {
+
+    }
     return function TimerHoc(TimedComponent) {
         class Timer extends React.Component {
             constructor(props) {
@@ -32,7 +35,7 @@ function timer(delay) {
             }
 
             render() {
-                const { props, stop } = this.props;
+                const { props, stop } = this;
                 const { tick } = this.state;
 
                 return React.createElement(TimedComponent, { ...props, tick, delay, stop });
