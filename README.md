@@ -5,7 +5,7 @@
 Keep your components simple, testable and composable by using higher-order components.
 This higher-order timer component will re-render your component at the desire rate (in milliseconds).
 
-__Demo__: [http://jsbin.com/vozegataco/edit?html,js,output](http://jsbin.com/vozegataco/edit?html,js,output)
+__Demo__: [http://jsbin.com/wusopumuki/edit?html,js,output](http://jsbin.com/vozegataco/edit?html,js,output)
 
 ### Applications
 
