@@ -1,3 +1,6 @@
+[![npm version](https://badge.fury.io/js/react-timer-hoc.svg)](https://badge.fury.io/js/react-timer-hoc)
+[![Build Status](https://travis-ci.org/troch/react-timer-hoc.svg?branch=v1.0.4)](https://travis-ci.org/troch/react-timer-hoc)
+
 # React timer component (higher-order)
 
 > A React higher-order timer component
