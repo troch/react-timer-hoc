@@ -7,12 +7,10 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-before_install:
-  - npm i -g babel-cli
 install:
   - export CXX=g++-4.8
   - $CXX --version
   - npm i
 script:
-  - npm run build
+  - npm run lint
   - npm test
