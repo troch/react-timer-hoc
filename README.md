@@ -11,7 +11,7 @@ __Demo__: [http://jsbin.com/vozegataco/edit?html,js,output](http://jsbin.com/voz
 
 - Countdowns (time remaining)
 - Timers (time elapsed)
-- Forcing updates of time-related contents
+- Forcing updates / refresh of time-based contents
 
 ### Installation
 
@@ -31,10 +31,14 @@ function myComponent({ tick, cancel, delay }) {
     return <div>Started { tick * delay }ms ago.</div>
 }
 
-const Timer = timer(1000)(myComponent);
+const Timer1 = timer(1000)(myComponent);
+const Timer2 = timer(2000)(myComponent);
 
 ReactDOM.render(
-    <Timer />,
+    <div>
+        <Timer1 />
+        <Timer2 />
+    </div>,
     document.getElementById('app')
 );
 ```
