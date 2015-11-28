@@ -5,6 +5,8 @@
 Keep your components simple, testable and composable by using higher-order components.
 This higher-order timer component will re-render your component at the desire interval (in milliseconds).
 
+__Demo__: [http://jsbin.com/vozegataco/edit?html,js,output](http://jsbin.com/vozegataco/edit?html,js,output)
+
 ### Applications
 
 - Countdowns (time remaining)
