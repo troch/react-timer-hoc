@@ -4,22 +4,24 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', 'react'], factory);
+        define(['exports', 'react', 'invariant'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('react'));
+        factory(exports, require('react'), require('invariant'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react);
+        factory(mod.exports, global.react, global.invariant);
         global.timer = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _invariant) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
 
     var _react2 = _interopRequireDefault(_react);
+
+    var _invariant2 = _interopRequireDefault(_invariant);
 
     function _interopRequireDefault(obj) {
         return obj && obj.__esModule ? obj : {
@@ -90,6 +92,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
     }
 
     function timer(delay) {
+        (0, _invariant2.default)(typeof delay === 'number' && delay > 0, '[react-timer-hoc] `delay` should be a number greater than 0.');
         return function TimerHoc(TimedComponent) {
             var Timer = (function (_React$Component) {
                 _inherits(Timer, _React$Component);
@@ -128,17 +131,19 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                                 tick: _this2.state.tick + 1
                             });
 
-                            _this2.setTimeout();
+                            if (!_this2.stopped) _this2.setTimeout();
                         }, delay);
                     })
                 }, {
                     key: 'stop',
                     value: function stop() {
+                        this.stopped = true;
                         clearTimeout(this.timer);
                     }
                 }, {
                     key: 'componentDidMount',
                     value: function componentDidMount() {
+                        this.stopped = false;
                         this.startTime = Date.now();
                         this.setTimeout();
                     }
@@ -150,9 +155,8 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                 }, {
                     key: 'render',
                     value: function render() {
-                        var _props = this.props;
-                        var props = _props.props;
-                        var stop = _props.stop;
+                        var props = this.props;
+                        var stop = this.stop;
                         var tick = this.state.tick;
                         return _react2.default.createElement(TimedComponent, _extends({}, props, {
                             tick: tick,

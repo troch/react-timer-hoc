@@ -1,8 +1,9 @@
 import React from 'react';
+import invariant from 'invariant';
 
 function timer(delay) {
     invariant(
-        typeof delay !== 'number' || delay === 0 || delay < 0,
+        typeof delay === 'number' && delay > 0,
         '[react-timer-hoc] `delay` should be a number greater than 0.'
     );
 
@@ -19,15 +20,17 @@ function timer(delay) {
                 const duration = delay - (this.startTime - Date.now()) % delay;
                 this.timer = setTimeout(() => {
                     this.setState({ tick: this.state.tick + 1 });
-                    this.setTimeout();
+                    if (!this.stopped) this.setTimeout();
                 }, delay);
             }
 
             stop() {
+                this.stopped = true;
                 clearTimeout(this.timer);
             }
 
             componentDidMount() {
+                this.stopped = false;
                 this.startTime = Date.now();
                 this.setTimeout();
             }

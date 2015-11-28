@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _invariant = require('invariant');
+
+var _invariant2 = _interopRequireDefault(_invariant);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21,6 +25,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function timer(delay) {
+    (0, _invariant2.default)(typeof delay === 'number' && delay > 0, '[react-timer-hoc] `delay` should be a number greater than 0.');
+
     return function TimerHoc(TimedComponent) {
         var Timer = (function (_React$Component) {
             _inherits(Timer, _React$Component);
@@ -54,17 +60,19 @@ function timer(delay) {
                     var duration = delay - (this.startTime - Date.now()) % delay;
                     this.timer = setTimeout(function () {
                         _this2.setState({ tick: _this2.state.tick + 1 });
-                        _this2.setTimeout();
+                        if (!_this2.stopped) _this2.setTimeout();
                     }, delay);
                 })
             }, {
                 key: 'stop',
                 value: function stop() {
+                    this.stopped = true;
                     clearTimeout(this.timer);
                 }
             }, {
                 key: 'componentDidMount',
                 value: function componentDidMount() {
+                    this.stopped = false;
                     this.startTime = Date.now();
                     this.setTimeout();
                 }
@@ -76,9 +84,8 @@ function timer(delay) {
             }, {
                 key: 'render',
                 value: function render() {
-                    var _props = this.props;
-                    var props = _props.props;
-                    var stop = _props.stop;
+                    var props = this.props;
+                    var stop = this.stop;
                     var tick = this.state.tick;
 
                     return _react2.default.createElement(TimedComponent, _extends({}, props, { tick: tick, delay: delay, stop: stop }));
