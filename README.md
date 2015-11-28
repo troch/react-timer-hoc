@@ -5,6 +5,12 @@
 Keep your components simple, testable and composable by using higher-order components.
 This higher-order timer component will re-render your component at the desire rate (in milliseconds).
 
+This higher-order component takes care of when to call render on your component, so your component has only to care about the rendering logic.
+
+> A higher-order component is just a function that takes an existing component and returns another component that wraps it.
+
+Read about higher-order components here (applies to deku as well): __[Mixins Are Dead. Long Live Composition](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.c8wftb16t)__.
+
 __Demo__: http://jsbin.com/nalixa/edit?html,js,output
 
 ### Applications
@@ -27,7 +33,7 @@ Create a new component by wrapping your component with `timer` HOC. Alongside th
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function myComponent({ tick, cancel, delay }) {
+function myComponent({ tick, stop, delay }) {
     return <div>Started { tick * delay }ms ago.</div>
 }
 

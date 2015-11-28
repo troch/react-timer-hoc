@@ -1,6 +1,6 @@
 {
   "name": "react-timer-hoc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React timer higher-order component",
   "main": "dist/commmonjs/timer.js",
   "scripts": {
@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/troch/react-timer-hoc#readme",
   "devDependencies": {
-    "babel": "^6.1.18",
     "babel-core": "^6.2.1",
     "babel-eslint": "^4.1.6",
     "babel-plugin-transform-es2015-modules-umd": "^6.1.18",
