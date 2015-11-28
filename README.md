@@ -32,6 +32,15 @@ npm install --save react-timer-hoc
 
 Create a new component by wrapping your component with `timer` HOC. Alongside the properties you specify, the created component will receive a `tick` property, the specified `delay` value and a `stop` function.
 
+__Important notice with ES5__
+
+> babel 6 changed the way transpiled default exports work. See [Babel 6 changes how it exports default](http://stackoverflow.com/questions/33505992/babel-6-changes-how-it-exports-default/33506169#33506169) on stack overflow.
+
+```javascript
+// ES5
+var timer = require('react-timer-hoc').default;
+```
+
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
