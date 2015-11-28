@@ -1,27 +1,30 @@
-import React, { Component, PropTypes, createElement } from 'react';
+import React from 'react';
 
 function timer(delay) {
     return function TimerHoc(TimedComponent) {
-        class Timer extends Component {
+        class Timer extends React.Component {
             constructor(props) {
                 super(props);
                 this.state = { tick: 0 };
-                this.setInterval = ::this.setInterval;
+                this.setTimeout = ::this.setTimeout;
                 this.stop = ::this.stop;
             }
 
-            setInterval() {
-                this.timer = setInterval(() => {
+            setTimeout() {
+                const duration = delay - (this.startTime - Date.now()) % delay;
+                this.timer = setTimeout(() => {
                     this.setState({ tick: this.state.tick + 1 });
+                    this.setTimeout();
                 }, delay);
             }
 
             stop() {
-                clearInterval(this.timer);
+                clearTimeout(this.timer);
             }
 
             componentDidMount() {
-                this.setInterval();
+                this.startTime = Date.now();
+                this.setTimeout();
             }
 
             componentWillUnmout() {
@@ -32,7 +35,7 @@ function timer(delay) {
                 const { props, stop } = this.props;
                 const { tick } = this.state;
 
-                return createElement(TimedComponent, { ...props, tick, delay, stop });
+                return React.createElement(TimedComponent, { ...props, tick, delay, stop });
             }
         };
 
