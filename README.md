@@ -3,7 +3,7 @@
 > A React higher-order timer component
 
 Keep your components simple, testable and composable by using higher-order components.
-This higher-order timer component will re-render your component at the desire interval (in milliseconds).
+This higher-order timer component will re-render your component at the desire rate (in milliseconds).
 
 __Demo__: [http://jsbin.com/vozegataco/edit?html,js,output](http://jsbin.com/vozegataco/edit?html,js,output)
 
@@ -21,7 +21,7 @@ npm install --save react-timer-hoc
 
 ### Usage
 
-Create a new component by wrapping your component with `timer` hoc. Along with the properties you specify, the created component will receive a `tick` property, alongside your specified `delay` and a `stop` function.
+Create a new component by wrapping your component with `timer` HOC. Alongside the properties you specify, the created component will receive a `tick` property, the specified `delay` value and a `stop` function.
 
 ```javascript
 import React from 'react';
