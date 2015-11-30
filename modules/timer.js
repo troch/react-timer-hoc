@@ -32,8 +32,8 @@ function timer(delay) {
                 const duration = delay - Math.abs(synchronizeWith - Date.now()) % delay;
 
                 this.timer = setTimeout(() => {
-                    this.setState({ tick: this.state.tick + 1 });
                     if (!this.stopped) this.setTimeout();
+                    this.setState({ tick: this.state.tick + 1 });
                 }, duration);
             }
 
@@ -74,13 +74,17 @@ function timer(delay) {
             }
 
             render() {
-                const { props, stop, resume, setDelay } = this;
+                const { props, delay, stop, resume, setDelay } = this;
                 const { tick } = this.state;
 
                 const timer = { delay, tick, stop, resume, setDelay };
 
                 return React.createElement(TimedComponent, { ...props, timer });
             }
+        };
+
+        Timer.propTypes = {
+            synchronizeWith: React.PropTypes.number
         };
 
         const componentName = TimedComponent.displayName || TimedComponent.name || 'Component';

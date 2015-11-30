@@ -60,6 +60,7 @@ describe('Timer', function() {
 
         clock.tick(60100);
         expect(counter.props.timer.tick).to.equal(3);
+        expect(counter.props.timer.delay).to.equal(60000);
         counter.props.timer.stop();
     });
 

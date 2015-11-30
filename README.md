@@ -22,6 +22,13 @@ __Demo__: http://jsbin.com/nalixa/edit?html,js,output
 - Timers (time elapsed)
 - Forcing updates / refresh of time-based contents
 
+
+### Features
+
+- Stop and resume a timer
+- Change its delay on the fly
+- Synchronize with a timestamp
+
 ### Installation
 
 ```sh
@@ -30,7 +37,10 @@ npm install --save react-timer-hoc
 
 ### Usage
 
-Create a new component by wrapping your component with `timer` HOC. Alongside the properties you specify, the created component will receive a `tick` property, the specified `delay` value and a `stop` function.
+Create a new component by wrapping your component with `timer` HOC. Alongside the properties you specify, the created component will receive a `timer` property containing:
+- A `tick` value (incremented)
+- The specified `delay` value
+- `stop`, `resume` and `setDelay` functions
 
 __Important notice with ES5__
 
@@ -45,8 +55,8 @@ var timer = require('react-timer-hoc').default;
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function myComponent({ tick, stop, delay }) {
-    return <div>Started { tick * delay }ms ago.</div>
+function myComponent({ timer }) {
+    return <div>Started { timer.tick * timer.delay }ms ago.</div>
 }
 
 const Timer1 = timer(1000)(myComponent);
