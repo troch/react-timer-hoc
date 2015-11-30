@@ -35,7 +35,7 @@ function timer(delay) {
                 this.setTimeout();
             }
 
-            componentWillUnmout() {
+            componentWillUnmount() {
                 this.stop();
             }
 
