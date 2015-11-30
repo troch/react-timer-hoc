@@ -1,3 +1,14 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/troch/react-timer-hoc/compare/v1.0.4...v1.0.5) (2015-11-30)
+
+
+### Bug Fixes
+
+* fix typo in componentWillUnmount ([12eadac](https://github.com/troch/react-timer-hoc/commit/12eadac))
+* fix typo in package.json  property ([1bbfeef](https://github.com/troch/react-timer-hoc/commit/1bbfeef))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/troch/react-timer-hoc/compare/v1.0.3...v1.0.4) (2015-11-28)
 

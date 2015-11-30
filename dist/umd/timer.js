@@ -148,8 +148,8 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                         this.setTimeout();
                     }
                 }, {
-                    key: 'componentWillUnmout',
-                    value: function componentWillUnmout() {
+                    key: 'componentWillUnmount',
+                    value: function componentWillUnmount() {
                         this.stop();
                     }
                 }, {

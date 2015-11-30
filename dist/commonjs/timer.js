@@ -77,8 +77,8 @@ function timer(delay) {
                     this.setTimeout();
                 }
             }, {
-                key: 'componentWillUnmout',
-                value: function componentWillUnmout() {
+                key: 'componentWillUnmount',
+                value: function componentWillUnmount() {
                     this.stop();
                 }
             }, {
