@@ -2,7 +2,7 @@
   "name": "react-timer-hoc",
   "version": "1.0.4",
   "description": "A React timer higher-order component",
-  "main": "dist/commmonjs/timer.js",
+  "main": "dist/commonjs/timer.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register modules/timer.test.js",
     "lint": "eslint modules/timer.js",
