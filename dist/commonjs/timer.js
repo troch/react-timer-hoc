@@ -24,8 +24,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function timer(delay) {
+function checkDelay(delay) {
     (0, _invariant2.default)(typeof delay === 'number' && delay > 0, '[react-timer-hoc] `delay` should be a number greater than 0.');
+}
+
+function timer(delay) {
+    checkDelay(delay);
 
     return function TimerHoc(TimedComponent) {
         var Timer = (function (_React$Component) {
@@ -36,9 +40,16 @@ function timer(delay) {
 
                 var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Timer).call(this, props));
 
+                _this.delay = delay;
                 _this.state = { tick: 0 };
+
+                _this.synchronizeWith = props.synchronizeWith;
+                _this.synchronized = props.synchronizeWith !== undefined;
+
                 _this.setTimeout = _this.setTimeout.bind(_this);
                 _this.stop = _this.stop.bind(_this);
+                _this.resume = _this.resume.bind(_this);
+                _this.setDelay = _this.setDelay.bind(_this);
                 return _this;
             }
 
@@ -57,12 +68,32 @@ function timer(delay) {
                 })(function () {
                     var _this2 = this;
 
-                    var duration = delay - (this.startTime - Date.now()) % delay;
+                    var delay = this.delay;
+                    var synchronizeWith = this.synchronizeWith;
+
+                    var duration = delay - Math.abs(synchronizeWith - Date.now()) % delay;
+
                     this.timer = setTimeout(function () {
-                        _this2.setState({ tick: _this2.state.tick + 1 });
                         if (!_this2.stopped) _this2.setTimeout();
-                    }, delay);
+                        _this2.setState({ tick: _this2.state.tick + 1 });
+                    }, duration);
                 })
+            }, {
+                key: 'start',
+                value: function start() {
+                    this.stopped = false;
+                    if (!this.synchronized) {
+                        this.synchronizeWith = Date.now();
+                    }
+                    this.setTimeout();
+                }
+            }, {
+                key: 'resume',
+                value: function resume() {
+                    if (this.stopped) {
+                        this.start();
+                    }
+                }
             }, {
                 key: 'stop',
                 value: function stop() {
@@ -70,11 +101,19 @@ function timer(delay) {
                     clearTimeout(this.timer);
                 }
             }, {
+                key: 'setDelay',
+                value: function setDelay(delay) {
+                    checkDelay(delay);
+                    this.delay = delay;
+                    if (!this.stopped) {
+                        this.stop();
+                        this.resume();
+                    }
+                }
+            }, {
                 key: 'componentDidMount',
                 value: function componentDidMount() {
-                    this.stopped = false;
-                    this.startTime = Date.now();
-                    this.setTimeout();
+                    this.start();
                 }
             }, {
                 key: 'componentWillUnmount',
@@ -85,10 +124,15 @@ function timer(delay) {
                 key: 'render',
                 value: function render() {
                     var props = this.props;
+                    var delay = this.delay;
                     var stop = this.stop;
+                    var resume = this.resume;
+                    var setDelay = this.setDelay;
                     var tick = this.state.tick;
 
-                    return _react2.default.createElement(TimedComponent, _extends({}, props, { tick: tick, delay: delay, stop: stop }));
+                    var timer = { delay: delay, tick: tick, stop: stop, resume: resume, setDelay: setDelay };
+
+                    return _react2.default.createElement(TimedComponent, _extends({}, props, { timer: timer }));
                 }
             }]);
 
@@ -96,6 +140,10 @@ function timer(delay) {
         })(_react2.default.Component);
 
         ;
+
+        Timer.propTypes = {
+            synchronizeWith: _react2.default.PropTypes.number
+        };
 
         var componentName = TimedComponent.displayName || TimedComponent.name || 'Component';
         Timer.displayName = 'Timer@' + delay + '[' + componentName + ']';

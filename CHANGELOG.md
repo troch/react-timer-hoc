@@ -1,3 +1,19 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/troch/react-timer-hoc/compare/v1.0.5...v2.0.0) (2015-11-30)
+
+
+### Features
+
+* add ability to resume and change delay of a timer ([cfbdf7c](https://github.com/troch/react-timer-hoc/commit/cfbdf7c))
+* add support for synchronizeWith property ([de65117](https://github.com/troch/react-timer-hoc/commit/de65117))
+
+
+### BREAKING CHANGES
+
+* tick, delay, stops are now properties of a timer prop
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/troch/react-timer-hoc/compare/v1.0.4...v1.0.5) (2015-11-30)
 
