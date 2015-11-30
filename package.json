@@ -41,7 +41,9 @@
     "jsdom": "^7.1.0",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.3",
-    "react-hyperscript": "^2.2.0"
+    "react-hyperscript": "^2.2.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "invariant": "^2.2.0",

@@ -1,5 +1,6 @@
 import { createRenderer, renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import React, { Component } from 'react';
 import h from 'react-hyperscript';
 import timer from './timer';
@@ -11,27 +12,55 @@ const win = doc.defaultView;
 global.document = doc;
 global.window = win;
 
-describe('Timer', function() {
-    it('should run', function() {
-        class Counter extends Component {
-            render() {
-                const { tick } = this.props;
-                return h('div', { tick });
-            }
-        }
+class Counter extends Component {
+    render() {
+        const { tick } = this.props;
+        return h('div', { tick });
+    }
+}
 
+describe('Timer', function() {
+    let clock, wrappedCounter, counter;
+
+    before(() => clock = sinon.useFakeTimers());
+    after(() => clock.restore());
+
+    it('should pass down a timer property alongside other props', function() {
         const WrappedCounter = timer(1000)(Counter);
         expect(WrappedCounter.displayName).to.equal('Timer@1000[Counter]');
 
         const wrappedCounter = renderIntoDocument(h(WrappedCounter, { customProp: 1 }));
-        const counter = findRenderedComponentWithType(wrappedCounter, Counter);
-        expect(counter.props.tick).to.equal(0);
-        expect(counter.props.delay).to.equal(1000);
-        expect(counter.props.stop).to.be.a.function;
-        expect(counter.props.customProp).to.equal(1);
 
+        counter = findRenderedComponentWithType(wrappedCounter, Counter);
+
+        expect(counter.props.timer.tick).to.equal(0);
+        expect(counter.props.timer.delay).to.equal(1000);
+        expect(counter.props.timer.stop).to.be.a.function;
+        expect(counter.props.timer.setDelay).to.be.a.function;
+        expect(counter.props.customProp).to.equal(1);
+    });
+
+    it('should increment a tick property', function() {
+        clock.tick(1100);
+        expect(counter.props.timer.tick).to.equal(1);
+        clock.tick(1000);
+        expect(counter.props.timer.tick).to.equal(2);
+    });
+
+    it('should have the ability to be stopped and resumed', function() {
         expect(wrappedCounter.stopped).to.be.false;
-        counter.props.stop();
+        counter.props.timer.stop();
         expect(wrappedCounter.stopped).to.be.true;
+        counter.props.timer.resume();
+        expect(wrappedCounter.stopped).to.be.false;
+    });
+
+    it('shoud give the ability to change its delay', function() {
+        counter.props.timer.setDelay(60000);
+        expect(wrappedCounter.delay).to.be.equal(60000);
+
+        clock.tick(60100);
+        expect(counter.props.timer.tick).to.equal(3);
+        counter.props.timer.stop();
     });
 });
