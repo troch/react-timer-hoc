@@ -19,6 +19,8 @@ class Counter extends Component {
     }
 }
 
+const WrappedCounter = timer(1000)(Counter);
+
 describe('Timer', function() {
     let clock, wrappedCounter, counter;
 
@@ -26,11 +28,8 @@ describe('Timer', function() {
     after(() => clock.restore());
 
     it('should pass down a timer property alongside other props', function() {
-        const WrappedCounter = timer(1000)(Counter);
         expect(WrappedCounter.displayName).to.equal('Timer@1000[Counter]');
-
-        const wrappedCounter = renderIntoDocument(h(WrappedCounter, { customProp: 1 }));
-
+        wrappedCounter = renderIntoDocument(h(WrappedCounter, { customProp: 1 }));
         counter = findRenderedComponentWithType(wrappedCounter, Counter);
 
         expect(counter.props.timer.tick).to.equal(0);
@@ -62,5 +61,19 @@ describe('Timer', function() {
         clock.tick(60100);
         expect(counter.props.timer.tick).to.equal(3);
         counter.props.timer.stop();
+    });
+
+    it('should be synchronized with a provided value', function() {
+        clock.restore();
+        clock = sinon.useFakeTimers(500);
+
+        wrappedCounter = renderIntoDocument(h(WrappedCounter, { synchronizeWith: 0 }));
+        counter = findRenderedComponentWithType(wrappedCounter, Counter);
+
+        expect(counter.props.timer.tick).to.equal(0);
+        clock.tick(600);
+        expect(counter.props.timer.tick).to.equal(1);
+        clock.tick(1000);
+        expect(counter.props.timer.tick).to.equal(2);
     });
 });

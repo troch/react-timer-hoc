@@ -18,6 +18,9 @@ function timer(delay) {
                 this.delay = delay;
                 this.state = { tick: 0 };
 
+                this.synchronizeWith = props.synchronizeWith;
+                this.synchronized = props.synchronizeWith !== undefined;
+
                 this.setTimeout = ::this.setTimeout;
                 this.stop = ::this.stop;
                 this.resume = ::this.resume;
@@ -25,20 +28,26 @@ function timer(delay) {
             }
 
             setTimeout() {
-                const { delay, startTime } = this;
-                const duration = delay - (startTime - Date.now()) % delay;
+                const { delay, synchronizeWith } = this;
+                const duration = delay - Math.abs(synchronizeWith - Date.now()) % delay;
 
                 this.timer = setTimeout(() => {
                     this.setState({ tick: this.state.tick + 1 });
                     if (!this.stopped) this.setTimeout();
-                }, delay);
+                }, duration);
+            }
+
+            start() {
+                this.stopped = false;
+                if (!this.synchronized) {
+                    this.synchronizeWith = Date.now();
+                }
+                this.setTimeout();
             }
 
             resume() {
                 if (this.stopped) {
-                    this.stopped = false;
-                    this.startTime = Date.now();
-                    this.setTimeout();
+                    this.start();
                 }
             }
 
@@ -57,9 +66,7 @@ function timer(delay) {
             }
 
             componentDidMount() {
-                this.stopped = false;
-                this.startTime = Date.now();
-                this.setTimeout();
+                this.start();
             }
 
             componentWillUnmount() {
