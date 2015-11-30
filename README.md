@@ -52,8 +52,10 @@ var timer = require('react-timer-hoc').default;
 ```
 
 ```javascript
+// ES2015+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import timer from 'react-timer-hoc';
 
 function myComponent({ timer }) {
     return <div>Started { timer.tick * timer.delay }ms ago.</div>
