@@ -37,7 +37,7 @@ npm install --save react-timer-hoc
 
 ### Usage
 
-Create a new component by wrapping your component with `timer` HOC. Alongside the properties you specify, the created component will receive a `timer` property containing:
+Create a new component by wrapping your component with __timer(delay)(Component)__ HOC. Alongside the properties you specify, the created component will receive a `timer` property containing:
 - A `tick` value (incremented)
 - The specified `delay` value
 - `stop`, `resume` and `setDelay` functions
