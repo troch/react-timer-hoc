@@ -20,14 +20,14 @@ __Demo__: http://jsbin.com/nalixa/edit?html,js,output
 
 - Countdowns (time remaining)
 - Timers (time elapsed)
-- Forcing updates / refresh of time-based contents
+- Forcing regular updates / refresh of time-based contents
 
 
 ### Features
 
 - Stop and resume a timer
 - Change its delay on the fly
-- Synchronize with a timestamp
+- Synchronize with a timestamp (local or server clock)
 
 ### Installation
 

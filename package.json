@@ -1,6 +1,6 @@
 {
   "name": "react-timer-hoc",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A React timer higher-order component",
   "main": "dist/commonjs/timer.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "keywords": [
     "react",
+    "react-component",
     "timer",
     "hoc",
     "higher-order",

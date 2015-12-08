@@ -1,3 +1,9 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/troch/react-timer-hoc/compare/v2.0.0...v2.0.1) (2015-12-08)
+
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/troch/react-timer-hoc/compare/v1.0.5...v2.0.0) (2015-11-30)
 
