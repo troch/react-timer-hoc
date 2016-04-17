@@ -1,6 +1,6 @@
 {
   "name": "react-timer-hoc",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A React timer higher-order component",
   "main": "dist/commonjs/timer.js",
   "scripts": {
@@ -41,13 +41,13 @@
     "eslint": "^1.10.2",
     "jsdom": "^7.1.0",
     "mocha": "^2.3.4",
-    "react-addons-test-utils": "^0.14.3",
+    "react-addons-test-utils": "^15.0.0",
     "react-hyperscript": "^2.2.0",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "invariant": "^2.2.0",
-    "react": "^0.14.0"
+    "react": "~0.14.0 || ^15.0.0"
   }
 }
