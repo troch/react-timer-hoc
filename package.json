@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/troch/react-timer-hoc#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "~6.24.1",
     "babel-eslint": "~7.2.3",
     "babel-plugin-transform-es2015-modules-umd": "~6.24.1",
