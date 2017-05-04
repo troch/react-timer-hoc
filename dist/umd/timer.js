@@ -1,25 +1,25 @@
-'use strict';
-
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', 'react', 'invariant'], factory);
+        define(['exports', 'react', 'prop-types', 'invariant'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('react'), require('invariant'));
+        factory(exports, require('react'), require('prop-types'), require('invariant'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.invariant);
+        factory(mod.exports, global.react, global.propTypes, global.invariant);
         global.timer = mod.exports;
     }
-})(this, function (exports, _react, _invariant) {
+})(this, function (exports, _react, _propTypes, _invariant) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
 
     var _react2 = _interopRequireDefault(_react);
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
 
     var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -49,7 +49,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -65,14 +65,14 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     function _possibleConstructorReturn(self, call) {
         if (!self) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
 
-        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
     }
 
     function _inherits(subClass, superClass) {
@@ -97,21 +97,22 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
 
     function timer(delay) {
         checkDelay(delay);
+
         return function TimerHoc(TimedComponent) {
-            var Timer = (function (_React$Component) {
+            var Timer = function (_React$Component) {
                 _inherits(Timer, _React$Component);
 
                 function Timer(props) {
                     _classCallCheck(this, Timer);
 
-                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Timer).call(this, props));
+                    var _this = _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).call(this, props));
 
                     _this.delay = delay;
-                    _this.state = {
-                        tick: 0
-                    };
+                    _this.state = { tick: 0 };
+
                     _this.synchronizeWith = props.synchronizeWith;
                     _this.synchronized = props.synchronizeWith !== undefined;
+
                     _this.setTimeout = _this.setTimeout.bind(_this);
                     _this.stop = _this.stop.bind(_this);
                     _this.resume = _this.resume.bind(_this);
@@ -121,7 +122,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
 
                 _createClass(Timer, [{
                     key: 'setTimeout',
-                    value: (function (_setTimeout) {
+                    value: function (_setTimeout) {
                         function setTimeout() {
                             return _setTimeout.apply(this, arguments);
                         }
@@ -131,29 +132,26 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                         };
 
                         return setTimeout;
-                    })(function () {
+                    }(function () {
                         var _this2 = this;
 
-                        var delay = this.delay;
-                        var synchronizeWith = this.synchronizeWith;
+                        var delay = this.delay,
+                            synchronizeWith = this.synchronizeWith;
+
                         var duration = delay - Math.abs(synchronizeWith - Date.now()) % delay;
+
                         this.timer = setTimeout(function () {
                             if (!_this2.stopped) _this2.setTimeout();
-
-                            _this2.setState({
-                                tick: _this2.state.tick + 1
-                            });
+                            _this2.setState({ tick: _this2.state.tick + 1 });
                         }, duration);
                     })
                 }, {
                     key: 'start',
                     value: function start() {
                         this.stopped = false;
-
                         if (!this.synchronized) {
                             this.synchronizeWith = Date.now();
                         }
-
                         this.setTimeout();
                     }
                 }, {
@@ -174,7 +172,6 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                     value: function setDelay(delay) {
                         checkDelay(delay);
                         this.delay = delay;
-
                         if (!this.stopped) {
                             this.stop();
                             this.resume();
@@ -193,34 +190,30 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                 }, {
                     key: 'render',
                     value: function render() {
-                        var props = this.props;
-                        var delay = this.delay;
-                        var stop = this.stop;
-                        var resume = this.resume;
-                        var setDelay = this.setDelay;
+                        var props = this.props,
+                            delay = this.delay,
+                            stop = this.stop,
+                            resume = this.resume,
+                            setDelay = this.setDelay;
                         var tick = this.state.tick;
-                        var timer = {
-                            delay: delay,
-                            tick: tick,
-                            stop: stop,
-                            resume: resume,
-                            setDelay: setDelay
-                        };
-                        return _react2.default.createElement(TimedComponent, _extends({}, props, {
-                            timer: timer
-                        }));
+
+
+                        var timer = { delay: delay, tick: tick, stop: stop, resume: resume, setDelay: setDelay };
+
+                        return _react2.default.createElement(TimedComponent, _extends({}, props, { timer: timer }));
                     }
                 }]);
 
                 return Timer;
-            })(_react2.default.Component);
+            }(_react2.default.Component);
 
-            ;
             Timer.propTypes = {
-                synchronizeWith: _react2.default.PropTypes.number
+                synchronizeWith: _propTypes2.default.number
             };
+
             var componentName = TimedComponent.displayName || TimedComponent.name || 'Component';
             Timer.displayName = 'Timer@' + delay + '[' + componentName + ']';
+
             return Timer;
         };
     }

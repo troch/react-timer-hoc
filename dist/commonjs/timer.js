@@ -1,16 +1,20 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _invariant = require('invariant');
 
@@ -32,13 +36,13 @@ function timer(delay) {
     checkDelay(delay);
 
     return function TimerHoc(TimedComponent) {
-        var Timer = (function (_React$Component) {
+        var Timer = function (_React$Component) {
             _inherits(Timer, _React$Component);
 
             function Timer(props) {
                 _classCallCheck(this, Timer);
 
-                var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Timer).call(this, props));
+                var _this = _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).call(this, props));
 
                 _this.delay = delay;
                 _this.state = { tick: 0 };
@@ -55,7 +59,7 @@ function timer(delay) {
 
             _createClass(Timer, [{
                 key: 'setTimeout',
-                value: (function (_setTimeout) {
+                value: function (_setTimeout) {
                     function setTimeout() {
                         return _setTimeout.apply(this, arguments);
                     }
@@ -65,11 +69,11 @@ function timer(delay) {
                     };
 
                     return setTimeout;
-                })(function () {
+                }(function () {
                     var _this2 = this;
 
-                    var delay = this.delay;
-                    var synchronizeWith = this.synchronizeWith;
+                    var delay = this.delay,
+                        synchronizeWith = this.synchronizeWith;
 
                     var duration = delay - Math.abs(synchronizeWith - Date.now()) % delay;
 
@@ -123,12 +127,13 @@ function timer(delay) {
             }, {
                 key: 'render',
                 value: function render() {
-                    var props = this.props;
-                    var delay = this.delay;
-                    var stop = this.stop;
-                    var resume = this.resume;
-                    var setDelay = this.setDelay;
+                    var props = this.props,
+                        delay = this.delay,
+                        stop = this.stop,
+                        resume = this.resume,
+                        setDelay = this.setDelay;
                     var tick = this.state.tick;
+
 
                     var timer = { delay: delay, tick: tick, stop: stop, resume: resume, setDelay: setDelay };
 
@@ -137,12 +142,10 @@ function timer(delay) {
             }]);
 
             return Timer;
-        })(_react2.default.Component);
-
-        ;
+        }(_react2.default.Component);
 
         Timer.propTypes = {
-            synchronizeWith: _react2.default.PropTypes.number
+            synchronizeWith: _propTypes2.default.number
         };
 
         var componentName = TimedComponent.displayName || TimedComponent.name || 'Component';
