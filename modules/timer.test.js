@@ -1,16 +1,15 @@
-import { createRenderer, renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { createRenderer, renderIntoDocument, findRenderedComponentWithType } from 'react-dom/test-utils';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import React, { Component } from 'react';
 import h from 'react-hyperscript';
 import timer from './timer';
-import jsdom from 'jsdom';
+import { JSDOM } from 'jsdom';
 
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
-const win = doc.defaultView;
+const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 
-global.document = doc;
-global.window = win;
+global.document = window.document;
+global.window = window;
 
 class Counter extends Component {
     render() {

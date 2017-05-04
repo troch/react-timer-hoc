@@ -82,7 +82,7 @@ function timer(delay) {
 
                 return React.createElement(TimedComponent, { ...props, timer });
             }
-        };
+        }
 
         Timer.propTypes = {
             synchronizeWith: PropTypes.number
