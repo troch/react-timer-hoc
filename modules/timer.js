@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import invariant from 'invariant';
 
 function checkDelay(delay) {
@@ -84,7 +85,7 @@ function timer(delay) {
         };
 
         Timer.propTypes = {
-            synchronizeWith: React.PropTypes.number
+            synchronizeWith: PropTypes.number
         };
 
         const componentName = TimedComponent.displayName || TimedComponent.name || 'Component';
