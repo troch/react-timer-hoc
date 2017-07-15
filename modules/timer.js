@@ -17,7 +17,7 @@ function timer(delay) {
             constructor(props) {
                 super(props);
                 this.delay = delay;
-                this.state = { tick: 0 };
+                this.state = { tick: 0, timestamp: Date.now() };
 
                 this.synchronizeWith = props.synchronizeWith;
                 this.synchronized = props.synchronizeWith !== undefined;
@@ -34,7 +34,10 @@ function timer(delay) {
 
                 this.timer = setTimeout(() => {
                     if (!this.stopped) this.setTimeout();
-                    this.setState({ tick: this.state.tick + 1 });
+                    this.setState({
+                        tick: this.state.tick + 1,
+                        timestamp: Date.now()
+                    });
                 }, duration);
             }
 
@@ -76,9 +79,9 @@ function timer(delay) {
 
             render() {
                 const { props, delay, stop, resume, setDelay } = this;
-                const { tick } = this.state;
+                const { tick, timestamp } = this.state;
 
-                const timer = { delay, tick, stop, resume, setDelay };
+                const timer = { delay, tick, timestamp, stop, resume, setDelay };
 
                 return React.createElement(TimedComponent, { ...props, timer });
             }

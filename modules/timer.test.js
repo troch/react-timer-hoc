@@ -32,6 +32,7 @@ describe('Timer', function() {
         counter = findRenderedComponentWithType(wrappedCounter, Counter);
 
         expect(counter.props.timer.tick).to.equal(0);
+        expect(counter.props.timer.timestamp).to.equal(0);
         expect(counter.props.timer.delay).to.equal(1000);
         expect(counter.props.timer.stop).to.be.a.function;
         expect(counter.props.timer.setDelay).to.be.a.function;
@@ -43,6 +44,15 @@ describe('Timer', function() {
         expect(counter.props.timer.tick).to.equal(1);
         clock.tick(1000);
         expect(counter.props.timer.tick).to.equal(2);
+    });
+
+    it('should pass down current timestamp', function() {
+        // Timestamp should already be at 2000ms from previous test.
+        expect(counter.props.timer.timestamp).to.equal(2000);
+        clock.tick(1000);
+        expect(counter.props.timer.timestamp).to.equal(3000);
+        clock.tick(1100);
+        expect(counter.props.timer.timestamp).to.equal(4000);
     });
 
     it('should have the ability to be stopped and resumed', function() {
@@ -58,7 +68,7 @@ describe('Timer', function() {
         expect(wrappedCounter.delay).to.be.equal(60000);
 
         clock.tick(60100);
-        expect(counter.props.timer.tick).to.equal(3);
+        expect(counter.props.timer.tick).to.equal(5);
         expect(counter.props.timer.delay).to.equal(60000);
         counter.props.timer.stop();
     });
