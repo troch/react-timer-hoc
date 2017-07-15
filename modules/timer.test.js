@@ -34,8 +34,8 @@ describe('Timer', function() {
         expect(counter.props.timer.tick).to.equal(0);
         expect(counter.props.timer.timestamp).to.equal(0);
         expect(counter.props.timer.delay).to.equal(1000);
-        expect(counter.props.timer.stop).to.be.a.function;
-        expect(counter.props.timer.setDelay).to.be.a.function;
+        expect(counter.props.timer.stop).to.be.a('function');
+        expect(counter.props.timer.setDelay).to.be.a('function');
         expect(counter.props.customProp).to.equal(1);
     });
 
