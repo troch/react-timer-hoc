@@ -108,7 +108,7 @@
                     var _this = _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).call(this, props));
 
                     _this.delay = delay;
-                    _this.state = { tick: 0 };
+                    _this.state = { tick: 0, timestamp: Date.now() };
 
                     _this.synchronizeWith = props.synchronizeWith;
                     _this.synchronized = props.synchronizeWith !== undefined;
@@ -142,7 +142,10 @@
 
                         this.timer = setTimeout(function () {
                             if (!_this2.stopped) _this2.setTimeout();
-                            _this2.setState({ tick: _this2.state.tick + 1 });
+                            _this2.setState({
+                                tick: _this2.state.tick + 1,
+                                timestamp: Date.now()
+                            });
                         }, duration);
                     })
                 }, {
@@ -195,10 +198,12 @@
                             stop = this.stop,
                             resume = this.resume,
                             setDelay = this.setDelay;
-                        var tick = this.state.tick;
+                        var _state = this.state,
+                            tick = _state.tick,
+                            timestamp = _state.timestamp;
 
 
-                        var timer = { delay: delay, tick: tick, stop: stop, resume: resume, setDelay: setDelay };
+                        var timer = { delay: delay, tick: tick, timestamp: timestamp, stop: stop, resume: resume, setDelay: setDelay };
 
                         return _react2.default.createElement(TimedComponent, _extends({}, props, { timer: timer }));
                     }

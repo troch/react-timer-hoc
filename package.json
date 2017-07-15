@@ -1,6 +1,6 @@
 {
   "name": "react-timer-hoc",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A React timer higher-order component",
   "main": "dist/commonjs/timer.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build:cjs": "babel modules/timer.js -o dist/commonjs/timer.js",
     "build:umd": "babel modules/timer.js -o dist/umd/timer.js --plugins transform-es2015-modules-umd",
     "build": "npm run lint && npm run build:cjs && npm run build:umd",
-    "clog": "conventional-changelog -p angular -i CHANGELOG.md -w"
+    "clog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",

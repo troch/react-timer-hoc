@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/troch/react-timer-hoc/compare/v2.1.0...v2.2.0) (2017-07-15)
+
+
+### Features
+
+* add timestamp property on timer prop (tick timestamp) [@MilllerTime](https://github.com/MilllerTime) ([299970c](https://github.com/troch/react-timer-hoc/commit/299970c))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/troch/react-timer-hoc/compare/v2.0.0...v2.0.1) (2015-12-08)
 
